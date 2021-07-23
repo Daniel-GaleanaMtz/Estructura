@@ -1,0 +1,54 @@
+﻿@model Negocio.Empleado
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Agregar Empleado</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Form", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Nombre)
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Nombre)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Puesto)
+                            @Html.DropDownListFor(model => model.Puesto.IdPuesto, new SelectList(Model.Puesto.Puestos, "IdPuesto", "Descripcion"), "- Seleccione el Puesto -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Puesto.IdPuesto)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Departamento)
+                            @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Descripcion"), "- Seleccione el Departamento -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Departamento.IdDepartamento)
+                        </div>
+                    </div>
+                    <!-- Probando DropDownList-->
+                    
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <input type="submit" value="Guardar" class="btn btn-success" />
+                            @Html.ActionLink("Regresar", "GetAll", "Empleado", htmlAttributes: new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>

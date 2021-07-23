@@ -1,0 +1,56 @@
+﻿@model Negocio.Empleado
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<h2>Lista de Empleados</h2>
+@using (Html.BeginForm("GetAll", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+            @Html.ValidationMessageFor(model => model.Nombre)
+        </div>
+
+        <div class="col-md-1">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+    </div>
+    <br />
+}
+
+<div class="container">
+    <div class="row">
+        <div style="float:right; margin-bottom:1rem;">
+            @Html.ActionLink("+", "Form", "Empleado", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <td class="hidden">IdEmpleado</td>
+                    <td class="text-center">Nombre</td>
+                    <td class="text-center">Departamento</td>
+                    <td class="text-center">Puesto</td>
+                    <td class="text-center">Eliminar</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Negocio.Empleado empleado in Model.Empleados)
+                {
+                    <tr>
+                        <td class="hidden">@empleado.IdEmpleado</td>
+                        <td class="text-center">@empleado.Nombre</td>
+                        <td class="text-center">@empleado.Departamento.Descripcion</td>
+                        <td class="text-center">@empleado.Puesto.Descripcion</td>
+                        <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Empleado", new { IdEmpleado = empleado.IdEmpleado })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

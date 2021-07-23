@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DGaleanaEstructuraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="IdDepartamento" />
+    </Key>
+    <Property Name="IdDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Empleadoes" Relationship="Self.FK_Empleado_Departamento" FromRole="Departamento" ToRole="Empleado" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="IdEmpleado" />
+    </Key>
+    <Property Name="IdEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdPuesto" Type="Int32" />
+    <Property Name="IdDepartamento" Type="Int32" />
+    <NavigationProperty Name="Departamento" Relationship="Self.FK_Empleado_Departamento" FromRole="Empleado" ToRole="Departamento" />
+    <NavigationProperty Name="Puesto" Relationship="Self.FK_Empleado_Puesto" FromRole="Empleado" ToRole="Puesto" />
+  </EntityType>
+  <EntityType Name="Puesto">
+    <Key>
+      <PropertyRef Name="IdPuesto" />
+    </Key>
+    <Property Name="IdPuesto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Empleadoes" Relationship="Self.FK_Empleado_Puesto" FromRole="Puesto" ToRole="Empleado" />
+  </EntityType>
+  <EntityType Name="Tabla">
+    <Key>
+      <PropertyRef Name="IdEmpleado" />
+    </Key>
+    <Property Name="IdEmpleado" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdPuesto" Type="Int32" />
+    <Property Name="PuestoDescripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IdDepartamento" Type="Int32" />
+    <Property Name="DepartamentoDescripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Empleado_Departamento">
+    <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamento">
+        <PropertyRef Name="IdDepartamento" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="IdDepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Empleado_Puesto">
+    <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
+    <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Puesto">
+        <PropertyRef Name="IdPuesto" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="IdPuesto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DGaleanaEstructuraEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Departamentoes" EntityType="Self.Departamento" />
+    <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
+    <EntitySet Name="Puestoes" EntityType="Self.Puesto" />
+    <EntitySet Name="Tablas" EntityType="Self.Tabla" />
+    <AssociationSet Name="FK_Empleado_Departamento" Association="Self.FK_Empleado_Departamento">
+      <End Role="Departamento" EntitySet="Departamentoes" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Empleado_Puesto" Association="Self.FK_Empleado_Puesto">
+      <End Role="Puesto" EntitySet="Puestoes" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+    </AssociationSet>
+    <FunctionImport Name="AddEmpleado">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="IdPuesto" Mode="In" Type="Int32" />
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteEmpleado">
+      <Parameter Name="IdEmpleado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllDepartamento" ReturnType="Collection(DGaleanaEstructuraModel.GetAllDepartamento_Result)" />
+    <FunctionImport Name="GetAllPuesto" ReturnType="Collection(DGaleanaEstructuraModel.GetAllPuesto_Result)" />
+    <FunctionImport Name="GetEmpleadoPuestoDepartamento" ReturnType="Collection(DGaleanaEstructuraModel.GetEmpleadoPuestoDepartamento_Result)" />
+    <FunctionImport Name="GetByNameEmpleado" ReturnType="Collection(DGaleanaEstructuraModel.GetByNameEmpleado_Result)">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetAllDepartamento_Result">
+    <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetAllPuesto_Result">
+    <Property Type="Int32" Name="IdPuesto" Nullable="false" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="GetEmpleadoPuestoDepartamento_Result">
+    <Property Type="Int32" Name="IdEmpleado" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="IdPuesto" Nullable="true" />
+    <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+    <Property Type="String" Name="PuestoDescripcion" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="DepartamentoDescripcion" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetByNameEmpleado_Result">
+    <Property Type="Int32" Name="IdEmpleado" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="PuestoDescripcion" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="DepartamentoDescripcion" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="IdPuesto" Nullable="true" />
+    <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+  </ComplexType>
+</Schema>

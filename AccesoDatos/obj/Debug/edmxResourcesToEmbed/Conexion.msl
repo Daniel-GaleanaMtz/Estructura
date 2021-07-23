@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DGaleanaEstructuraModelStoreContainer" CdmEntityContainer="DGaleanaEstructuraEntities">
+    <EntitySetMapping Name="Departamentoes">
+      <EntityTypeMapping TypeName="DGaleanaEstructuraModel.Departamento">
+        <MappingFragment StoreEntitySet="Departamento">
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleadoes">
+      <EntityTypeMapping TypeName="DGaleanaEstructuraModel.Empleado">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Puestoes">
+      <EntityTypeMapping TypeName="DGaleanaEstructuraModel.Puesto">
+        <MappingFragment StoreEntitySet="Puesto">
+          <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tablas">
+      <EntityTypeMapping TypeName="DGaleanaEstructuraModel.Tabla">
+        <MappingFragment StoreEntitySet="Tablas">
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+          <ScalarProperty Name="PuestoDescripcion" ColumnName="PuestoDescripcion" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="DepartamentoDescripcion" ColumnName="DepartamentoDescripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddEmpleado" FunctionName="DGaleanaEstructuraModel.Store.AddEmpleado" />
+    <FunctionImportMapping FunctionImportName="DeleteEmpleado" FunctionName="DGaleanaEstructuraModel.Store.DeleteEmpleado" />
+    <FunctionImportMapping FunctionImportName="GetAllDepartamento" FunctionName="DGaleanaEstructuraModel.Store.GetAllDepartamento">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DGaleanaEstructuraModel.GetAllDepartamento_Result">
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllPuesto" FunctionName="DGaleanaEstructuraModel.Store.GetAllPuesto">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DGaleanaEstructuraModel.GetAllPuesto_Result">
+          <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetEmpleadoPuestoDepartamento" FunctionName="DGaleanaEstructuraModel.Store.GetEmpleadoPuestoDepartamento">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DGaleanaEstructuraModel.GetEmpleadoPuestoDepartamento_Result">
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="PuestoDescripcion" ColumnName="PuestoDescripcion" />
+          <ScalarProperty Name="DepartamentoDescripcion" ColumnName="DepartamentoDescripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetByNameEmpleado" FunctionName="DGaleanaEstructuraModel.Store.GetByNameEmpleado">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DGaleanaEstructuraModel.GetByNameEmpleado_Result">
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="PuestoDescripcion" ColumnName="PuestoDescripcion" />
+          <ScalarProperty Name="DepartamentoDescripcion" ColumnName="DepartamentoDescripcion" />
+          <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
